@@ -153,7 +153,7 @@ if __name__ == '__main__':
     run_eda(df_raw)
 
     # Basic cleaning
-    df_cleaned = clean_data(df_raw.drop(columns=['source_file'], errors='ignore'))
+    df_cleaned = clean_data(df_raw)
 
     # Anomaly removal
     df_final, df_anomalies = remove_anomalies(df_cleaned, contamination=0.05)

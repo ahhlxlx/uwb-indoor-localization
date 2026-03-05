@@ -3,6 +3,9 @@
 *~
 *.pyc
 
+# Ignore Jupyter checkpoint files
+.ipynb_checkpoints/
+
 # Ignore all CSV data files
 # data/raw/
 data/processed/
