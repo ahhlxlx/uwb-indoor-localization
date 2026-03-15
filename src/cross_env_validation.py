@@ -11,8 +11,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, '..'))
 CLEANED_DATA_PATH = os.path.join(PROJECT_ROOT, 'data', 'processed', 'cleaned_data.csv')
 METRICS_DIR = os.path.join(PROJECT_ROOT, 'results', 'metrics')
 
-# ENVIRONMENT MAPPING
-# This maps your filenames to the actual names programmatically
+# ENVIRONMENT MAPPING: map filename to actual name
 ENV_NAMES = {
     'uwb_dataset_part1.csv': 'Office 1',
     'uwb_dataset_part2.csv': 'Office 2',
@@ -76,7 +75,7 @@ for i, file_name in enumerate(files):
         preds = reg.predict(X_test_r)
         rmse = np.sqrt(mean_squared_error(y_test_r_los, preds))
     
-    # Store results using the ACTUAL name
+    # Store results using the actual name
     results.append({
         'Environment': actual_name,
         'Classifier_Accuracy': clf_acc,
@@ -100,11 +99,11 @@ print("\n========== Generating Visualizations ==========")
 
 # CHART 1: Accuracy per Environment (Classifier)
 plt.figure(figsize=(12, 6))
-# Create colors for each bar
+# Colors for each bar
 colors = plt.cm.Paired(np.linspace(0, 1, len(loeo_df)))
 bars = plt.bar(loeo_df['Environment'], loeo_df['Classifier_Accuracy'], color=colors)
 
-# Add a dashed line for the average
+# Average
 avg_acc = loeo_df['Classifier_Accuracy'].mean()
 plt.axhline(y=avg_acc, color='red', linestyle='--', alpha=0.6, label=f'Average: {avg_acc:.2f}')
 
@@ -130,7 +129,7 @@ RANDOM_METRICS_PATH = os.path.join(PROJECT_ROOT, 'results', 'metrics', 'regressi
 if os.path.exists(RANDOM_METRICS_PATH):
     random_results = pd.read_csv(RANDOM_METRICS_PATH)
     try:
-        # Get baseline from teammate's RandomForest results
+        # Get baseline from RandomForest results
         avg_random_rmse = random_results[random_results['model'] == 'RandomForest']['rmse'].values[0]
         avg_cross_rmse = loeo_df['Regression_RMSE'].mean()
 
@@ -178,7 +177,6 @@ if os.path.exists(RANDOM_METRICS_PATH):
         print("INSIGHT: The model generalizes well to new environments.")
 
 # Find the hardest environment
-# We use 'Regression_RMSE' because that's what we named it in the results append earlier
 hardest_env = loeo_df.loc[loeo_df['Regression_RMSE'].idxmax()]
 easiest_env = loeo_df.loc[loeo_df['Regression_RMSE'].idxmin()]
 
