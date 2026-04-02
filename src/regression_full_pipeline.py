@@ -31,12 +31,9 @@ print("Prediction dataset shape:", pred_df.shape)
 feature_df = pd.read_csv("../data/processed/enhanced_features.csv")
 
 # CIR engineered features
-FEATURES = [
-    "FP_IDX", "FP_AMP1", "FP_AMP2", "FP_AMP3",
-    "STDEV_NOISE", "CIR_PWR", "MAX_NOISE", "RXPACC",
-    "CH", "FRAME_LEN", "PREAM_LEN", "BITRATE", "PRFR",
-    "rms_delay", "kurtosis", "skewness", "peak_amp"
-]
+FEATURES = ['FP_IDX', 'FP_AMP1',
+               'STDEV_NOISE', 'CIR_PWR', 'MAX_NOISE', 'RXPACC',
+                'rms_delay', 'kurtosis', 'peak_amp']
 
 # -----------------------------
 # Merge RANGE

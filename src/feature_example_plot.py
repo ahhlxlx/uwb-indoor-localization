@@ -1,11 +1,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# Step 1.5 :
+
 # 1. Load the files
 # df_raw contains the 1016 CIR columns
 # df_enhanced contains the engineered 'rms_delay' column
 df_raw = pd.read_csv('../data/processed/cleaned_data.csv')
-df_enhanced = pd.read_csv('../data/processed/enhanced_features.csv')
+df_enhanced = pd.read_csv('../data/processed/old_enhanced_features.csv')
 
 
 def get_median_index(df, target_class):
@@ -36,7 +38,7 @@ plt.ylabel('Amplitude')
 plt.grid(True, linestyle='--', alpha=0.5)
 plt.legend()
 
-plt.savefig('../results/figures/cir_comparison.png')
+plt.savefig('../results/figures/feature_cir_comparison.png')
 plt.show()
 
 print(f"Median LOS Index: {idx_los}")

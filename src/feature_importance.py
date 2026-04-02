@@ -1,6 +1,4 @@
 import matplotlib
-matplotlib.use('Agg') # 'Agg' is a non-interactive backend (no windows, no hangs)
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,9 +7,11 @@ from sklearn.ensemble import RandomForestClassifier
 import shap
 import sys
 
+# Step 2 of feature engineering pipeline
+
 # 1. Load Data
 print("Loading data...")
-df = pd.read_csv('../data/processed/enhanced_features.csv').dropna()
+df = pd.read_csv('../data/processed/old_enhanced_features.csv').dropna()
 X = df.drop('NLOS', axis=1)
 y = df['NLOS']
 
@@ -47,9 +47,9 @@ plt.figure(figsize=(10, 8))
 shap.summary_plot(shap_to_plot, X_sample, plot_type="dot", show=False)
 plt.title("SHAP Feature Impact (NLOS)")
 plt.tight_layout()
-plt.savefig('../results/figures/nlos_shap_analysis.png')
+plt.savefig('../results/figures/feature_shap.png')
 plt.close()
-print("Success! Plot saved as 'nlos_shap_analysis.png'")
+print("Success! Plot saved as 'feature_shap.png'")
 
 # 5. Save Gini Plot
 print("Generating Gini plot...")
@@ -59,7 +59,7 @@ indices = np.argsort(importances)
 plt.barh(range(len(indices)), importances[indices], color='skyblue')
 plt.yticks(range(len(indices)), [X.columns[i] for i in indices])
 plt.title("Feature Importance Ranking")
-plt.savefig('../results/figures/gini_importance_ranking.png')
+plt.savefig('../results/figures/feature_gini_importance.png')
 plt.close()
 
 print("\nDONE!")

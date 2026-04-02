@@ -2,8 +2,9 @@ import numpy as np
 import pandas as pd
 from scipy.stats import kurtosis, skew
 
-# Step 1 of feature engineering pipeline
-# Channel Impulse Response (CIR) metrics
+# Step 3 of feature importance pipeline
+# Prune unneeded features
+# Final step before passing over to Classification
 
 def extract_features(df):
     cir_cols = [f'CIR{i}' for i in range(1016)]
@@ -32,20 +33,20 @@ def extract_features(df):
     return features
 
 # --- EXECUTION ---
-# Load your cleaned data
-df_cleaned = pd.read_csv('../data/processed/cleaned_data.csv')
+# Start from 5.2
+df_old = pd.read_csv('../data/processed/old_enhanced_features.csv')
 
-# Run the extraction
-df_engineered = extract_features(df_cleaned)
+# Define the "Optimised+" set (The middle ground)
+optimised_plus_cols = [
+    'NLOS', 'RANGE', 'FP_IDX', 'FP_AMP1',
+       'STDEV_NOISE', 'CIR_PWR', 'MAX_NOISE', 'RXPACC',
+        'rms_delay', 'kurtosis', 'peak_amp'
+]
 
-target_cols = ['NLOS', 'RANGE', 
-               'FP_IDX', 'FP_AMP1', 'FP_AMP2', 'FP_AMP3',
-               'STDEV_NOISE', 'CIR_PWR', 'MAX_NOISE', 'RXPACC',
-               'CH', 'FRAME_LEN', 'PREAM_LEN', 'BITRATE', 'PRFR']
-df_final = pd.concat([df_cleaned[target_cols].reset_index(drop=True), df_engineered], axis=1)
+df_final = df_old[optimised_plus_cols]
 
 # Save the much smaller, high-value dataset
-df_final.to_csv('../data/processed/old_enhanced_features.csv', index=False)
+df_final.to_csv('../data/processed/enhanced_features.csv', index=False)
 
 print("Success! Final dataset created with labels.")
 print(f"Columns: {df_final.columns.tolist()}")

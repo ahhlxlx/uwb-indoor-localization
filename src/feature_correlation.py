@@ -2,12 +2,10 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Using 'Agg' backend to avoid hanging on macOS
-import matplotlib
-matplotlib.use('Agg')
+# Step 2 of feature engineering pipeline
 
 # 1. Load the data
-df = pd.read_csv('../data/processed/enhanced_features.csv')
+df = pd.read_csv('../data/processed/old_enhanced_features.csv')
 
 # 2. Calculate Pearson Correlation
 corr_matrix = df.corr()
@@ -19,8 +17,8 @@ plt.title("Pearson Correlation Heatmap of UWB Enhanced Features")
 
 # 4. Save the figure
 plt.tight_layout()
-plt.savefig('../results/figures/correlation_heatmap.png')
-print("Heatmap saved as 'correlation_heatmap.png'")
+plt.savefig('../results/figures/feature_correlation_heatmap.png')
+print("Heatmap saved as 'feature_correlation_heatmap.png'")
 
 # 5. Print insights to console
 print("\n--- Correlation with NLOS ---")
