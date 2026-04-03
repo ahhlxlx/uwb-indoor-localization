@@ -150,7 +150,7 @@ if os.path.exists(RANDOM_METRICS_PATH):
         drop_pct = ((avg_cross_rmse - avg_random_rmse) / avg_random_rmse) * 100
         plt.annotate(f'+{drop_pct:.1f}% Error Increase', 
                      xy=(1, avg_cross_rmse), xytext=(0.5, avg_cross_rmse + 0.05),
-                     fontsize=12, color='red', fontweight='bold')
+                     fontsize=9, color='red', fontweight='bold')
 
         plt.tight_layout()
         plt.savefig(os.path.join(FIGURES_DIR, 'performance_drop_comparison.png'))
