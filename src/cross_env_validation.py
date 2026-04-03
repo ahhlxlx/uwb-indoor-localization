@@ -9,6 +9,7 @@ from sklearn.metrics import mean_squared_error, accuracy_score
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, '..'))
 CLEANED_DATA_PATH = os.path.join(PROJECT_ROOT, 'data', 'processed', 'cleaned_data.csv')
+ENHANCED_FEATURES_PATH = os.path.join(PROJECT_ROOT, 'data', 'processed', 'enhanced_features.csv')
 METRICS_DIR = os.path.join(PROJECT_ROOT, 'results', 'metrics')
 
 # ENVIRONMENT MAPPING: map filename to actual name
@@ -23,16 +24,20 @@ ENV_NAMES = {
 }
 
 def get_features_and_labels(df):
-    # Features used in the project
-    features = ['FP_AMP1', 'STDEV_NOISE', 'CIR_PWR', 'RXPACC', 'FP_IDX', 'MAX_NOISE']
+    # Features used in this project
+    features = ['FP_AMP1', 'STDEV_NOISE', 'CIR_PWR', 'RXPACC', 'FP_IDX', 'MAX_NOISE',
+                'rms_delay', 'kurtosis', 'peak_amp']
     X = df[features]
     y_class = df['NLOS']
     y_reg = df['RANGE']
     return X, y_class, y_reg
 
 # Load the master dataset
-print(f"Loading cleaned data from: {CLEANED_DATA_PATH}")
-full_df = pd.read_csv(CLEANED_DATA_PATH)
+print(f"Loading enhanced features data from: {ENHANCED_FEATURES_PATH}")
+full_df = pd.read_csv(ENHANCED_FEATURES_PATH)
+
+source_files = pd.read_csv(CLEANED_DATA_PATH, usecols=['source_file'])
+full_df['source_file'] = source_files['source_file'].values
 
 # Get unique files from the data
 files = sorted(full_df['source_file'].unique())
