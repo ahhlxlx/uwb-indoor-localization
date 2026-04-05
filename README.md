@@ -7,7 +7,7 @@ Raw CSVs → Data Cleaning → Feature Extraction → Feature Pruning → Classi
 
 ## Demo Video
 https://youtu.be/DaBEi96-gzc
-github link: https://github.com/ahhlxlx/uwb-indoor-localization
+- github link: https://github.com/ahhlxlx/uwb-indoor-localization
 
 ---
 
